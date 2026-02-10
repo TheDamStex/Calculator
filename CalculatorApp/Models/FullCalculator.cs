@@ -6,7 +6,7 @@ public class FullCalculator : ICalculator
 
     public FullCalculator(ICalculator legacyAdapter)
     {
-        _legacyAdapter = legacyAdapter;
+        _legacyAdapter = legacyAdapter ?? throw new ArgumentNullException(nameof(legacyAdapter));
     }
 
     public double Add(double a, double b)
