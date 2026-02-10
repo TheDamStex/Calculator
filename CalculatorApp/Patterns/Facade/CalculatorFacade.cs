@@ -24,6 +24,7 @@ public class CalculatorFacade : ICalculatorFacade
     {
         try
         {
+            // Facade приховує від ViewModel побудову потрібної комбінації обчислювачів.
             var calculator = CreateCalculator(mode, roundingDigits);
             var result = ExecuteOperation(calculator, a, b, operation);
             return CalculationResult.Success(result);
@@ -44,12 +45,15 @@ public class CalculatorFacade : ICalculatorFacade
         }
         else
         {
+            // Adapter: узгоджує старий LegacyMathEngine з інтерфейсом ICalculator.
             var legacy = new LegacyMathEngine();
             var adapter = new LegacyMathAdapter(legacy);
             calculator = new FullCalculator(adapter);
+            // Decorator: додає округлення без змін базового калькулятора (OCP).
             calculator = new RoundingDecorator(calculator, roundingDigits);
         }
 
+        // Decorator: додає історію окремою відповідальністю (SRP).
         calculator = new HistoryDecorator(calculator, _history);
         return calculator;
     }
