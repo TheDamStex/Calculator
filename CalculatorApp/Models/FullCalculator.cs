@@ -31,6 +31,6 @@ public class FullCalculator : ICalculator
             throw new DivideByZeroException("Ділення на нуль неможливе.");
         }
 
-        return a / b;
+        return _legacyAdapter.Divide(a, b);
     }
 }
