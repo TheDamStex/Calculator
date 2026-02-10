@@ -12,7 +12,7 @@ public class CalculatorFacade : ICalculatorFacade
 
     public CalculatorFacade(IList<string> history)
     {
-        _history = history;
+        _history = history ?? throw new ArgumentNullException(nameof(history));
     }
 
     public CalculationResult Calculate(

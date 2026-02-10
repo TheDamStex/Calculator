@@ -40,8 +40,8 @@ public class MainViewModel : BaseViewModel
 
     public MainViewModel(ICalculatorFacade calculatorFacade, ObservableCollection<string> history)
     {
-        _calculatorFacade = calculatorFacade;
-        History = history;
+        _calculatorFacade = calculatorFacade ?? throw new ArgumentNullException(nameof(calculatorFacade));
+        History = history ?? throw new ArgumentNullException(nameof(history));
 
         Operations = new ObservableCollection<string> { "+", "-", "*", "/" };
         Modes = new ObservableCollection<string> { "Light", "Full" };
